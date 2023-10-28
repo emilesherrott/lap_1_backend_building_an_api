@@ -2,18 +2,78 @@ const express = require("express")
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-    res.send("Hello Fruity")
+const logger = require("./logger")
+
+app.use(express.json())
+app.use(logger)
+
+const { fruits } = require("./fruits")
+
+app.get("/", (req, res) => {
+  res.send("Hello Fruity")
 })
 
-app.get('/fruits', (req, res) => {
-    res.send('Return all the fruits');
- })
- 
- app.get('/fruits/:name', (req, res) => {
-    res.send(`Return a fruit with id ${req.params.name}`);
- })
- 
- app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
- })
+app.get("/fruits", (req, res) => {
+  res.send(fruits)
+})
+
+app.get("/fruits/:name", (req, res) => {
+  const name = req.params.name.toLowerCase()
+  const fruit = fruits.filter((fruit) => fruit.name.toLowerCase() === name)
+  if (fruit === undefined) {
+    res.status(404).send("No fruit found")
+  } else {
+    res.send(fruit)
+  }
+})
+
+// FruityAPI ids are not increasing integers. We weed to find the max id, then we can
+// simply increment this number to ensure a unique id for new fruit we add
+const ids = fruits.map((fruit) => fruit.id);
+let maxId = Math.max(...ids);
+
+app.post("/fruits", (req, res) => {
+    // first check if a fruit with the name specified by the user already exists
+    const fruit = fruits.find((fruit) => fruit.name.toLowerCase() == req.body.name.toLowerCase());
+
+    if (fruit != undefined) {
+        // fruit already exists -> conflict response code returned
+        res.status(409).send("The fruit already exists.");
+    } else {
+        // fruit does not already exist. Increment the maxId and add it to
+        // the data sent to the server by the user
+        maxId += 1;
+        req.body.id = maxId;
+
+        // add the fruit to the list of fruits
+        fruits.push(req.body);
+
+        // Return successfully created status code and echo the new fruit back to the user
+        res.status(201).send(req.body);
+    }
+});
+
+app.delete("/fruits/:name", (req, res) => {
+    // First check if fruit exists
+    const name = req.params.name.toLowerCase();
+    const fruitIndex = fruits.findIndex((fruit) => fruit.name.toLowerCase() == name);
+
+    if (fruitIndex == -1) {
+        // Fruit cannot be found, return 404
+        res.status(404).send("The fruit doesn't exist.");
+    } else {
+        // Fruit found. Use the array index found to remove it from the array
+        fruits.splice(fruitIndex, 1);
+
+        // Return no content status code
+        res.sendStatus(204)
+    }
+});
+
+
+
+
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
