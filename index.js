@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express")
 const fs = require("fs")
 const app = express()
@@ -120,6 +121,6 @@ app.delete("/fruits/:name", (req, res) => {
   }
 })
 
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
   console.log(`Example app listening on port ${port}`)
 })
