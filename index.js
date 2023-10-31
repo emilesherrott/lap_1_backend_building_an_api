@@ -108,7 +108,7 @@ app.delete("/fruits/:name", (req, res) => {
           console.log(err)
         } else {
           // Return successfully created status code and echo the new fruit back to the user
-          res.status(204)
+          res.sendStatus(204)
         }
       })
     }

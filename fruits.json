@@ -1,19 +1,5 @@
 [
   {
-    "genus": "Malus",
-    "name": "Apple",
-    "id": 6,
-    "family": "Rosaceae",
-    "order": "Rosales",
-    "nutritions": {
-      "carbohydrates": 11.4,
-      "protein": 0.3,
-      "fat": 0.4,
-      "calories": 52,
-      "sugar": 10.3
-    }
-  },
-  {
     "genus": "Prunus",
     "name": "Apricot",
     "id": 35,
@@ -224,20 +210,6 @@
     }
   },
   {
-    "genus": "Apteryx",
-    "name": "Kiwi",
-    "id": 66,
-    "family": "Actinidiaceae",
-    "order": "Struthioniformes",
-    "nutritions": {
-      "carbohydrates": 15,
-      "protein": 1.1,
-      "fat": 0.5,
-      "calories": 61,
-      "sugar": 9
-    }
-  },
-  {
     "genus": "Actinidia",
     "name": "Kiwifruit",
     "id": 85,
@@ -389,20 +361,6 @@
       "fat": 0.7,
       "calories": 97,
       "sugar": 11.2
-    }
-  },
-  {
-    "genus": "Prunus",
-    "name": "Peach",
-    "id": 86,
-    "family": "Rosaceae",
-    "order": "Rosales",
-    "nutritions": {
-      "carbohydrates": 9.5,
-      "protein": 0.9,
-      "fat": 0.25,
-      "calories": 39,
-      "sugar": 8.4
     }
   },
   {
@@ -558,5 +516,14 @@
       "calories": 30,
       "sugar": 6
     }
+  },
+  {
+    "name": "avacado",
+    "genus": "avo",
+    "nutritions": {
+      "carbs": 40,
+      "of-which-sugar": 30
+    },
+    "id": 88
   }
 ]
